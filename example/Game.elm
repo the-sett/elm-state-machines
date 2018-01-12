@@ -6,6 +6,10 @@ import GameState exposing (..)
 
 
 -- An example of it in action.
+-- This prints out the model as a cycle of loading, playing, completing then
+-- restarting the state machine for a game progresses.
+-- The purpose of this is to show how the model changes its type in different
+-- states eliminating the need for partsof the model to be Maybes.
 
 
 type Msg
@@ -17,8 +21,8 @@ type Msg
 
 type alias Model =
     { game : Game
-    , previous : List Game
-    , count : Int
+    , previous : List Game -- Holds the list of previous states to print.
+    , count : Int -- Used to restrict how many steps this demo runs to avoid infinite looping.
     }
 
 
