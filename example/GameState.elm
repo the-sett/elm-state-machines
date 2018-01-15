@@ -13,7 +13,7 @@ module GameState
         , toGameOver
         )
 
-import StateMachine exposing (..)
+import StateMachine exposing (State(..), Allowed)
 
 
 -- An Example model for a game of some kind.
@@ -86,7 +86,7 @@ updateGameDefinition :
     -> State p { m | definition : GameDefinition }
     -> State p { m | definition : GameDefinition }
 updateGameDefinition func state =
-    map (mapDefinition func) state
+    StateMachine.map (mapDefinition func) state
 
 
 updatePlayState :
@@ -94,7 +94,7 @@ updatePlayState :
     -> State p { m | play : PlayState }
     -> State p { m | play : PlayState }
 updatePlayState func state =
-    map (mapPlay func) state
+    StateMachine.map (mapPlay func) state
 
 
 updateScore : Int -> PlayState -> PlayState
