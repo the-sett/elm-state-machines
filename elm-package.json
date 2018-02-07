@@ -1,12 +1,12 @@
 {
     "version": "1.0.0",
-    "summary": "Modelling state machines in Elm.",
-    "repository": "https://github.com/the-sett/elm-state-machines.git",
+    "summary": "Helper functions for nesting updates in Elm.",
+    "repository": "https://github.com/the-sett/elm-update-helper.git",
     "license": "BSD",
     "source-directories": [
         "src/"
     ],
-    "exposed-modules": [ "StateMachine" ],
+    "exposed-modules": [ "Update2", "Update3", "Task.Extra" ],
     "native-modules": false,
     "dependencies": {
         "elm-lang/core": "5.0.0 <= v < 6.0.0"
