@@ -1,8 +1,10 @@
-module Game exposing (..)
+module Game exposing (Model, Msg(..), init, main, message, update, view)
 
+import Browser
+import GameState exposing (..)
 import Html exposing (Html)
 import Task
-import GameState exposing (..)
+
 
 
 -- An example of it in action.
@@ -31,7 +33,7 @@ message msg =
 
 
 main =
-    Html.program
+    Browser.element
         { init = init
         , subscriptions = \_ -> Sub.none
         , update = update
@@ -39,8 +41,8 @@ main =
         }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : () -> ( Model, Cmd Msg )
+init _ =
     ( { game = loading
       , previous = []
       , count = 5
@@ -56,7 +58,7 @@ update msg model =
             ( model, Cmd.none )
 
         ( nextGame, cmd ) =
-            case ( model.game, (Debug.log "update" msg) ) of
+            case ( model.game, Debug.log "update" msg ) of
                 ( Loading loading, Loaded gameDefinition ) ->
                     ( { model | game = toReadyWithGameDefinition gameDefinition loading }
                     , message StartGame
@@ -80,18 +82,35 @@ update msg model =
                 ( _, _ ) ->
                     noop
     in
-        if model.count > 0 then
-            ( { nextGame
-                | previous = model.game :: model.previous
-                , count = model.count - 1
-              }
-            , cmd
-            )
-        else
-            noop
+    if model.count > 0 then
+        ( { nextGame
+            | previous = model.game :: model.previous
+            , count = model.count - 1
+          }
+        , cmd
+        )
+
+    else
+        noop
 
 
 view : Model -> Html Msg
 view model =
     Html.div [] <|
-        List.map (\game -> Html.p [] [ Html.text (toString game) ]) (List.reverse model.previous)
+        List.map (\game -> Html.p [] [ Html.text (gameToString game) ]) (List.reverse model.previous)
+
+
+gameToString : Game -> String
+gameToString game =
+    case game of
+        Loading loading ->
+            "Loading"
+
+        Ready ready ->
+            "Ready"
+
+        InPlay inPlay ->
+            "InPlay"
+
+        GameOver gameOver ->
+            "GameOver"

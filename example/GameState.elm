@@ -1,19 +1,19 @@
-module GameState
-    exposing
-        ( Game(..)
-        , GameDefinition
-        , PlayState
-        , loading
-        , updateGameDefinition
-        , updatePlayState
-        , updateScore
-        , toReady
-        , toReadyWithGameDefinition
-        , toInPlayWithPlayState
-        , toGameOver
-        )
+module GameState exposing
+    ( Game(..)
+    , GameDefinition
+    , PlayState
+    , loading
+    , toGameOver
+    , toInPlayWithPlayState
+    , toReady
+    , toReadyWithGameDefinition
+    , updateGameDefinition
+    , updatePlayState
+    , updateScore
+    )
 
-import StateMachine exposing (State(..), Allowed)
+import StateMachine exposing (Allowed, State(..))
+
 
 
 -- An Example model for a game of some kind.
@@ -71,12 +71,12 @@ gameOver definition score =
 -- Update functions that can be applied when parts of the model are present.
 
 
-mapDefinition : (a -> b) -> ({ m | definition : a } -> { m | definition : b })
+mapDefinition : (a -> a) -> ({ m | definition : a } -> { m | definition : a })
 mapDefinition func =
     \model -> { model | definition = func model.definition }
 
 
-mapPlay : (a -> b) -> ({ m | play : a } -> { m | play : b })
+mapPlay : (a -> a) -> ({ m | play : a } -> { m | play : a })
 mapPlay func =
     \model -> { model | play = func model.play }
 

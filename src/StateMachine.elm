@@ -1,10 +1,4 @@
-module StateMachine
-    exposing
-        ( Allowed
-        , State(..)
-        , map
-        , untag
-        )
+module StateMachine exposing (Allowed, State(..), map, untag)
 
 {-| Reusable state machine concepts.
 
