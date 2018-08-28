@@ -58,7 +58,7 @@ update msg model =
             ( model, Cmd.none )
 
         ( nextGame, cmd ) =
-            case ( model.game, Debug.log "update" msg ) of
+            case ( model.game, msg ) of
                 ( Loading loading, Loaded gameDefinition ) ->
                     ( { model | game = toReadyWithGameDefinition gameDefinition loading }
                     , message StartGame
